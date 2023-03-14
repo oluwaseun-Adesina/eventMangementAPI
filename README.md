@@ -118,3 +118,8 @@ Based on the requirements analysis, the following schema can be designed:
 -   GET /logout - Logout a user.
 
 ```
+
+### **HOSTED ON**
+
+```
+-  Render : https://specialmanbackendassignmentthree.onrender.com
