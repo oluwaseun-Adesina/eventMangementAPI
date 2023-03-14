@@ -136,10 +136,33 @@ exports.deleteAttendee = async (req, res) => {
 exports.getEventAttendees = async (req, res) => {
 
 
-  const id = req.body.id;
+  const id = req.params.event;
   const event = await Event.findById(id).select('-name -description -date -location').populate({ path: 'attendees', select: '-event' });
   
 
   res.json({ title: "Event Attendees", event });
 
 };
+
+
+
+exports.getEventsByAttendees = async (req, res) => {
+  const attendeeId = req.params.attendeeId;
+
+  const attendees = await Attendee.findById(attendeeId)
+  const events = await Event.find({ _id: { $in: attendees.event } }).select('-attendees');
+
+  res.json(events); 
+}
+
+
+// count attendees by event
+exports.countAttendeesByEvent = async (req, res) => {
+  const eventId = req.params.event;
+
+  const event = await Event.findById(eventId).select('-name -description -date -location');
+  const attended = await Attendee.find({ event: event._id });
+  console.log(event);
+  const count = attended.length;
+  res.json({ count });
+}

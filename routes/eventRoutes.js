@@ -11,7 +11,7 @@ router.get('/event/', requireAuth, eventController.getCreateEvent);
 router.post('/event', requireAuth, eventController.postCreateEvent);
 router.get('/events/edit', requireAuth, eventController.getEditEvent);
 router.patch('/event/:id', requireAuth, eventController.postEditEvent);
-router.get('/event/:id', requireAuth, eventController.getDeleteEvent);
+router.get('/event/delete', requireAuth, eventController.getDeleteEvent);
 router.delete('/event/:id', requireAuth, eventController.postDeleteEvent); 
 
 
