@@ -9,10 +9,10 @@ router.get('/events', requireAuth, eventController.getAllEvents);
 router.get('/events/:id',requireAuth, eventController.getEvent);
 router.get('/event/', requireAuth, eventController.getCreateEvent);
 router.post('/event', requireAuth, eventController.postCreateEvent);
-router.get('/events/edit', requireAuth, eventController.getEditEvent);
+router.get('/event/:id', requireAuth, eventController.getEditEvent);
 router.patch('/event/:id', requireAuth, eventController.postEditEvent);
-router.get('/event/delete', requireAuth, eventController.getDeleteEvent);
-router.delete('/event/:id', requireAuth, eventController.postDeleteEvent); 
+router.get('/event/delete/:id', requireAuth, eventController.getDeleteEvent);
+router.delete('/event/delete/:id', requireAuth, eventController.postDeleteEvent); 
 
 
 

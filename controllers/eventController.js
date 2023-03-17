@@ -20,11 +20,11 @@ exports.getEvent = async (req, res) => {
 };
  
 exports.getCreateEvent = (req, res) => { 
-    res.send("getCreateEvent")
-//   res.json({
-//     message:
-//       "Create a new event by entering the name, description, date, time, and location"
-//   });
+    // res.send("getCreateEvent")
+  res.json({
+    message:
+      "Create a new event by entering the name, description, date, time, and location"
+  });
 }; 
 
 exports.postCreateEvent = async (req, res) => {
@@ -41,17 +41,23 @@ exports.postCreateEvent = async (req, res) => {
     });
     await event.save();
 
-    res.status(201).json(event,)
+    res.status(201).json({message: "Event Created Successfully", event})
   } catch (error) {
     console.log(error);
     res.json({ message: "Error creating event", error: error });
   }
-};
+}; 
 
 exports.getEditEvent = async (req, res) => {
-  const event = await Event.findById(req.params.id);
-  res.json({ event: event, title: "Edit Event" });
-  // res.render('edit', { event: event, title: 'Edit Event' });
+
+  try {
+    const event = await Event.findById(req.params.id);
+    res.json({ title: "Edit Event", event: event  });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error retrieving event" });
+  }
+
 };
 
 exports.postEditEvent = async (req, res) => {
@@ -68,60 +74,31 @@ exports.postEditEvent = async (req, res) => {
 };
 
 exports.getDeleteEvent = async (req, res) => {
-  const event = await Event.findById(req.params.id);
-  res.json({ event: event, title: "Delete Event" });
-};
-
-exports.postDeleteEvent = async (req, res) => {
-    try{
-        const event = await Event.findById(req.params.id);
-        await event.remove();
-        res.json({ message: "Event deleted successfully" });
-    }
-    catch(err){
-        console.log(err);
-        res.status(400).json({ message: "Error deleting event" });
-    }
-};
-
-exports.getAttendEvent = async (req, res) => {
-  const event = await Event.findById(req.params.id);
-  res.json({ event: event, title: "Attend Event" });
-  // res.render('attend', { event: event, title: 'Attend Event' });
-};
-
-exports.postAttendEvent = async (req, res) => {
-  const { name, email, phone, event } = req.body;
-
   try {
-    const attendee = new Attendee({ name, email, phone, event });
-    await attendee.save();
-    res.status(201).json(attendee).redirect(`/events/${event}`);
-  } catch (error) {
-    res.status(400).json({ message: "Error creating attendee" });
+    const event = await Event.findById(req.params.id);
+    res.json({ title: "Delete Event", event: event });
+  }
+  catch(err){
+    console.log(err);
+    res.status(500).json({ message: "Error retrieving event" });
   }
 };
 
-exports.getAttendees = async (req, res) => {
-  const attendees = await Attendee.find().sort({ createdAt: -1 });
-  res.json({ title: "All Attendees", attendees });
-  // res.render('attendees', { title: 'All Attendees', attendees });
+exports.postDeleteEvent = async (req, res) => {
+  try{
+      const event = await Event.findById(req.params.id);
+      if (!event) {
+          return res.status(404).json({ message: "Event not found" });
+      }
+      // console.log(event);
+      await Event.deleteOne(event);
+    
+
+      res.json({ message: "Event deleted successfully" });
+  }
+  catch(err){
+      console.log(err);
+      res.status(400).json({ message: "Error deleting event" });
+  }
 };
 
-exports.getAttendee = async (req, res) => {
-  const attendee = await Attendee.findById(req.params.id);
-  res.json
-}
-
-// add attendee to event
-
-
-
-
-
-// remove attendee from event
-
-exports.getDeleteAttendee = async (req, res) => {
-  const attendee = await Attendee.findById(req.params.id);
-  res.json({ attendee: attendee, title: "Delete Attendee" });
-};

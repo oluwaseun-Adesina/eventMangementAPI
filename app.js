@@ -38,7 +38,7 @@ app.get('*', checkUser);
 //blog routes
 app.use(authRoute)
 app.use(eventRoutes, requireAuth)
-app.use(attendeeRoutes, requireAuth)
+app.use(attendeeRoutes, requireAuth) 
 // app.use('/blogs', blogRoutes);
 //app.get('/blogs/create')
 //app.use(authRoute)

@@ -34,7 +34,7 @@ const handleErrors = (err) =>{
 
 //create tokent
 const secret = process.env.authcontrollerSecret;
-const maxAge = 3 * 24 * 60 * 60;
+const maxAge =  30 * 60;
 const createToken = (id) =>{
     return jwt.sign({id}, secret, {
         expiresIn: maxAge
@@ -47,7 +47,7 @@ module.exports.signup_get = (req, res) => {
 
 
 module.exports.login_get = (req, res) => {
-    res.json('Please Login to continue')
+    res.json('Please enter your credentials')
 }
 
 module.exports.signup_post =  async (req, res) => {
@@ -73,7 +73,7 @@ module.exports.login_post = async (req, res) => {
         const user = await User.login(email, password);
         const token = createToken(user._id);
         res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000})
-        res.status(200).json({user: user._id});
+        res.status(200).json({user: user._id, message: "Logged in successfully"});
 
     } catch (err) {
         const errors = handleErrors(err)

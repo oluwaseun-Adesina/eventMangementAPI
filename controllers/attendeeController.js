@@ -14,15 +14,20 @@ exports.getAllAttendees = async (req, res) => {
   }
 }
 
-exports.getAttendee = async (req, res) => {
-  const attendee = await Attendee.findById(req.params.id);
-  const events = await Event.find({ attendee: attendee.id });
+exports.getSingleAttendee = async (req, res) => {
+  try {
+    const attendee = await Attendee.findById(req.params.id);
+    console.log(attendee);
+    res.json({ attendee: attendee, title: "Attendee Details" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error retrieving attendee" });
+  }
 
-  res.json({ attendee: attendee, title: "Attendee Details", events });
 }
 
 exports.getCreateAttendee = (req, res) => {
-  res.json("getCreateAttendee")
+  res.json("Enter the name, email, phone, and event to register a person for an event");
 }
 
 
@@ -77,16 +82,16 @@ exports.postEditAttendee = async (req, res) => {
   attendee = Object.assign(attendee, req.body);
   try {
     await attendee.save();
-    res.status(200).json(attendee);
+    res.status(200).json({message: "Editted attendee",attendee});
   } catch (error) {
     console.log(error);
     res.json({ message: "Error updating attendee", error: error });
   }
-}
+}   
 
 exports.getDeleteAttendee = async (req, res) => {
   const attendee = await Attendee.findById(req.params.id);
-  res.json({ attendee: attendee, title: "Delete Attendee" });
+  res.json({title: "Delete Attendee", attendee: attendee, });
 }
 
 
@@ -147,22 +152,29 @@ exports.getEventAttendees = async (req, res) => {
 
 
 exports.getEventsByAttendees = async (req, res) => {
-  const attendeeId = req.params.attendeeId;
+  try {
+    const attendeeId = req.params.attendeeId;
 
   const attendees = await Attendee.findById(attendeeId)
   const events = await Event.find({ _id: { $in: attendees.event } }).select('-attendees');
 
-  res.json(events); 
+  res.json(events);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error retrieving events" });
+  }
+
 }
 
 
 // count attendees by event
 exports.countAttendeesByEvent = async (req, res) => {
-  const eventId = req.params.event;
+  const eventId = req.params.eventId;
 
   const event = await Event.findById(eventId).select('-name -description -date -location');
   const attended = await Attendee.find({ event: event._id });
   console.log(event);
+  console.log(attended);
   const count = attended.length;
   res.json({ count });
 }

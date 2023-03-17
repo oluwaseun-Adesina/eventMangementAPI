@@ -83,11 +83,11 @@ Based on the requirements analysis, the following schema can be designed:
 
 ```
 -   GET /attendees - Get a list of all attendees.
--   GET /attendee/:{attendeeId} - Get details of a specific attendee.
 -   GET /attendee Get create a new attendee.
+-   GET /attendee/:{attendeeId} - Get details of a specific attendee.
 -   POST /attendee - Create a new attendee.
 -   GET /attendee/edit - Get edit details of a specific attendee.
--   PATCH /attendee/:{attendeeId} - Update details of a specific attendee.
+-   PATCH /attendee/edit/:{attendeeId} - Update details of a specific attendee.
 -   GET /attendee/delete - Get delete a specific attendee.
 -   DELETE /attendee/:{attendeeId} - Delete a specific attendee.
 -   GET /attendee/:{attendeeId}/events - Get a list of all events attended by a specific attendee.
@@ -99,13 +99,13 @@ Based on the requirements analysis, the following schema can be designed:
 
 ```
 -   GET /events - Get a list of all events.
--   GET /event/:{eventId} - Get details of a specific event.
+-   GET /event/:{id} - Get details of a specific event.
 -   GET /event Get create a new event.
 -   POST /event - Create a new event.
--   GET /event/edit - Get edit details of a specific event.
--   PATCH /event/:{eventId} - Update details of a specific event.
--   GET /event/delete - Get delete a specific event.
--   DELETE /event/:{eventId} - Delete a specific event.
+-   GET /event/:id - Get edit details of a specific event.
+-   PATCH /event/:{Id} - Update details of a specific event.
+-   GET /event/delete/:id - Get delete a specific event.
+-   DELETE /event/delete/:{id} - Delete a specific event.
 ```
 
 ### **USER ENDPOINTS**
@@ -123,3 +123,22 @@ Based on the requirements analysis, the following schema can be designed:
 
 ```
 -  Render : https://specialmanbackendassignmentthree.onrender.com
+
+```
+
+## MailTrap
+
+```
+-  MailTrap : https://mailtrap.io/inboxes/1390000/messages/224000000
+-  MailTrap Email : alessandria3@jaccessedsq.com
+-  MailTrap Password : 1234567890
+
+
+```
+
+## Postman
+
+```
+-  Postman : https://documenter.getpostman.com/view/19758246/2s93JxsMcM
+
+```

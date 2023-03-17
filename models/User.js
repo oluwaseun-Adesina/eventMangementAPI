@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema({
     },
     phone: {
         type: String,
-        required: [true,'Please enter phone number'],
+        required: [false,'Please enter phone number'],
         maxlength: [14, 'Maximum phone number length is 14 character']
     },
     address: {
