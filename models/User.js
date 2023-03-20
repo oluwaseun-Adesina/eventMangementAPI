@@ -39,7 +39,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please enter address'],
         lowercase: true
-    }
+    } 
 });
 
 // fire a function after doc saved to db

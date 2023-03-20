@@ -12,7 +12,7 @@ exports.getAllEvents = async (req, res) => {
     console.log(error);
     res.status(500).json({ message: "Error retrieving events" });
   }
-};
+};  
 
 exports.getEvent = async (req, res) => {
   const event = await Event.findById(req.params.id).select('-attendees');
