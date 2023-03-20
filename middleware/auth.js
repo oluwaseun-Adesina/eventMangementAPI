@@ -12,6 +12,7 @@ const requireAuth = (req, res, next) => {
         jwt.verify(token, secret, (err, decodedToken) => {
             if (err) {
                 console.log(err.message)
+                res.json({message: "Not Authorized, Please Login"});
                 res.redirect('/login');
             } 
             else {
@@ -22,7 +23,7 @@ const requireAuth = (req, res, next) => {
 
     }
     else {
-        res.redirect('/login');
+        res.json({message: "Not Authorized, Please Login"});
     }
 }
 
