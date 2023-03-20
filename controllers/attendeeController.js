@@ -130,7 +130,7 @@ exports.deleteAttendee = async (req, res) => {
 
     await Attendee.findByIdAndDelete(req.params.id);
 
-    res.json({ message: "Attendee deleted successfully, mail sent to attendee", attendee, eventDetails });
+    res.json({ message: "Attendee deleted successfully, mail sent to attendee", attendee });
   } catch (error) {
     console.log(error);
     res.json({ message: "Error deleting attendee", error: error });
@@ -141,7 +141,7 @@ exports.deleteAttendee = async (req, res) => {
 exports.getEventAttendees = async (req, res) => {
 
 
-  const id = req.params.event;
+  const id = req.params.eventId;
   const event = await Event.findById(id).select('-name -description -date -location').populate({ path: 'attendees', select: '-event' });
   
 

@@ -16,7 +16,7 @@ router.patch('/attendees/edit/:attendeeId', requireAuth, attendeeController.post
 router.get('/attendees/delete/:attendeeId', requireAuth, attendeeController.getDeleteAttendee);
 router.delete('/attendees/delete/:attendeeId', requireAuth, attendeeController.deleteAttendee);
 
-router.get('events/:event/attendees', requireAuth, attendeeController.getEventAttendees);
+router.get('/events/:eventId/attendees', requireAuth, attendeeController.getEventAttendees);
 router.get('/attendee/:attendeeId/events', requireAuth, attendeeController.getEventsByAttendees)
 // count attendees by event
 router.get('/attendees/:eventId/count', requireAuth, attendeeController.countAttendeesByEvent)
