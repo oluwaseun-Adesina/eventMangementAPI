@@ -17,7 +17,7 @@ router.get('/attendees/delete/:attendeeId', requireAuth, attendeeController.getD
 router.delete('/attendees/delete/:attendeeId', requireAuth, attendeeController.deleteAttendee);
 
 router.get('/events/:eventId/attendees', requireAuth, attendeeController.getEventAttendees);
-router.get('/attendee/:attendeeId/events', requireAuth, attendeeController.getEventsByAttendees)
+router.get('/attendees/:attendeeId/events', requireAuth, attendeeController.getEventsByAttendees)
 // count attendees by event
 router.get('/attendees/:eventId/count', requireAuth, attendeeController.countAttendeesByEvent)
 
