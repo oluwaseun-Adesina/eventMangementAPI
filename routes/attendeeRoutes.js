@@ -6,17 +6,20 @@ const { requireAuth } = require('../middleware/auth');
 
 
 router.get('/attendees', requireAuth, attendeeController.getAllAttendees);
-router.get('/attendee', requireAuth, attendeeController.getCreateAttendee);
-router.get('/attendee/single/:id', requireAuth, attendeeController.getSingleAttendee);
-router.post('/attendee', requireAuth, attendeeController.postAttendee);
-router.get('/attendee/edit/:id', requireAuth, attendeeController.getEditAttendee);
-router.patch('/attendee/edit/:id', requireAuth, attendeeController.postEditAttendee);
-router.get('/attendee/:id', requireAuth, attendeeController.getDeleteAttendee);
-router.delete('/attendee/:id', requireAuth, attendeeController.deleteAttendee);
-router.get('/attendeelist/:event', requireAuth, attendeeController.getEventAttendees);
+router.get('/attendees/create', requireAuth, attendeeController.getCreateAttendee);
+
+router.post('/attendees/create', requireAuth, attendeeController.postAttendee);
+
+router.get('/attendees/single/:attendeeId', requireAuth, attendeeController.getSingleAttendee);
+router.get('/attendees/edit/:attendeeId', requireAuth, attendeeController.getEditAttendee);
+router.patch('/attendees/edit/:attendeeId', requireAuth, attendeeController.postEditAttendee);
+router.get('/attendees/delete/:attendeeId', requireAuth, attendeeController.getDeleteAttendee);
+router.delete('/attendees/delete/attendeeId', requireAuth, attendeeController.deleteAttendee);
+
+router.get('events/:event/attendees', requireAuth, attendeeController.getEventAttendees);
 router.get('/attendee/:attendeeId/events', requireAuth, attendeeController.getEventsByAttendees)
 // count attendees by event
-router.get('/attendee/:eventId/count', requireAuth, attendeeController.countAttendeesByEvent)
+router.get('/attendees/:eventId/count', requireAuth, attendeeController.countAttendeesByEvent)
 
 
 

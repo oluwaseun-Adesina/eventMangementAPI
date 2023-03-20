@@ -16,7 +16,7 @@ exports.getAllAttendees = async (req, res) => {
 
 exports.getSingleAttendee = async (req, res) => {
   try {
-    const attendee = await Attendee.findById(req.params.id);
+    const attendee = await Attendee.findById(req.params.attendeeId);
     console.log(attendee);
     res.json({ attendee: attendee, title: "Attendee Details" });
   } catch (error) {
@@ -73,12 +73,12 @@ exports.postAttendee = async (req, res) => {
 
 
 exports.getEditAttendee = async (req, res) => {
-  const attendee = await Attendee.findById(req.params.id);
+  const attendee = await Attendee.findById(req.params.attendeeId);
   res.json({ attendee: attendee, title: "Edit Attendee" });
 }
 
 exports.postEditAttendee = async (req, res) => {
-  let attendee = await Attendee.findById(req.params.id);
+  let attendee = await Attendee.findById(req.params.attendeeId);
   attendee = Object.assign(attendee, req.body);
   try {
     await attendee.save();
@@ -90,7 +90,7 @@ exports.postEditAttendee = async (req, res) => {
 }   
 
 exports.getDeleteAttendee = async (req, res) => {
-  const attendee = await Attendee.findById(req.params.id);
+  const attendee = await Attendee.findById(req.params.attendeeId);
   res.json({title: "Delete Attendee", attendee: attendee, });
 }
 
@@ -99,7 +99,7 @@ exports.deleteAttendee = async (req, res) => {
   try {
 
     // RETRIEVE ATTENDEE AND EVENT DETAILS
-    const attendee = await Attendee.findById(req.params.id);
+    const attendee = await Attendee.findById(req.params.attendeeId);
     const eventDetails = await Event.findById(attendee.event);
     // const eventDetails = attendee.event;
 
