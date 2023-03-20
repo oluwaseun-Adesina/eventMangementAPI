@@ -7,10 +7,10 @@ const {requireAuth} = require('../middleware/auth');
 
 router.get('/events', requireAuth, eventController.getAllEvents);
 router.get('/events/:id',requireAuth, eventController.getEvent);
-router.get('/event/', requireAuth, eventController.getCreateEvent);
-router.post('/event', requireAuth, eventController.postCreateEvent);
-router.get('/event/:id', requireAuth, eventController.getEditEvent);
-router.patch('/event/:id', requireAuth, eventController.postEditEvent);
+router.get('/events/create', requireAuth, eventController.getCreateEvent);
+router.post('/events/create', requireAuth, eventController.postCreateEvent);
+router.get('/events/edit/:id', requireAuth, eventController.getEditEvent);
+router.patch('/event/edit/:id', requireAuth, eventController.postEditEvent);
 router.get('/event/delete/:id', requireAuth, eventController.getDeleteEvent);
 router.delete('/event/delete/:id', requireAuth, eventController.postDeleteEvent); 
 

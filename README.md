@@ -100,10 +100,10 @@ Based on the requirements analysis, the following schema can be designed:
 ```
 -   GET /events - Get a list of all events.
 -   GET /event/:{id} - Get details of a specific event.
--   GET /event Get create a new event.
--   POST /event - Create a new event.
--   GET /event/:id - Get edit details of a specific event.
--   PATCH /event/:{Id} - Update details of a specific event.
+-   GET /events/create Get create a new event.
+-   POST /events/create - Create a new event.
+-   GET /events/edit/:id - Get edit details of a specific event.
+-   PATCH /event/edit/:{Id} - Update details of a specific event.
 -   GET /event/delete/:id - Get delete a specific event.
 -   DELETE /event/delete/:{id} - Delete a specific event.
 ```
@@ -111,9 +111,7 @@ Based on the requirements analysis, the following schema can be designed:
 ### **USER ENDPOINTS**
 
 ```
--   GET /signup - Get create a new user.
 -   POST /signup - Create a new user.
--   GET /login - Get login a user.
 -   POST /login - Login a user.
 -   GET /logout - Logout a user.
 

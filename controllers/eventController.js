@@ -4,7 +4,9 @@ const Attendee = require("../models/Attendee");
 
 exports.getAllEvents = async (req, res) => {
   try {
-    const events = await Event.find().sort({ createdAt: -1 });
+    // const events = await Event.find().sort({ createdAt: -1 });
+
+    const events = await Event.find().sort({ createdAt: -1 }).select('-attendees');
     res.json({ title: "All Events", events });
   } catch (error) {
     console.log(error);
@@ -13,8 +15,8 @@ exports.getAllEvents = async (req, res) => {
 };
 
 exports.getEvent = async (req, res) => {
-  const event = await Event.findById(req.params.id);
-  const attendees = await Attendee.find({ event: event.id });
+  const event = await Event.findById(req.params.id).select('-attendees');
+  const attendees = await Attendee.find({ event: event.id }).select('-event');
 
   res.json({ event: event, title: "Event Details", attendees });
 };
