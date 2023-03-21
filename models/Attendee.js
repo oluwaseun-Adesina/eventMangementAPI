@@ -21,7 +21,10 @@ const attendeeSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Event',
         required: [true, 'Please enter event time']
-    }]
+    }], userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }
 });
 
 const Attendee = mongoose.model('Attendee', attendeeSchema);

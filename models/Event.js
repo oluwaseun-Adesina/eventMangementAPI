@@ -34,7 +34,10 @@ const eventSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Attendee',
         required: [true, 'Please enter event attendees']
-    }]
+    }], userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }
 });
 
 

@@ -20,7 +20,14 @@ const handleErrors = (err) =>{
 
     //duplicate error code
     if (err.code === 11000){
+        
         errors.email = 'That email is already registered';
+        return errors;
+    }
+
+    // dupicate phone number
+    if (err.code === 11001){
+        errors.phone = 'That phone number is already registered';
         return errors;
     }
 
@@ -52,10 +59,10 @@ const createToken = (id) =>{
 // }
 
 module.exports.signup_post =  async (req, res) => {
-    const { firstname, lastname, email, password, phone, address} = req.body;
+    const { firstname, lastname, email, password, phone, address, role} = req.body;
 
     try{
-        const user =  await User.create({ firstname, lastname, email, password, phone, address});
+        const user =  await User.create({ firstname, lastname, email, password, phone, address, role: role || 'basic'});
         const token = createToken(user._id);
 
         const message = ` Dear ${user.firstname},
@@ -86,7 +93,7 @@ module.exports.signup_post =  async (req, res) => {
 
 
         res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000})
-        res.status(201).json( {user : user._id});
+        res.status(201).json( {user : user._id, userRole: user.role, message: "Registered successfully"} );
     }
     catch(err){
         const errors =handleErrors(err)
@@ -113,4 +120,15 @@ module.exports.login_post = async (req, res) => {
 module.exports.logout_get = (req, res) => {
     res.cookie('jwt', '', { maxAge: 1})
     res.json('Logged out successfully')
+}
+
+// update user
+module.exports.updateUser = async (req, res) => {
+    const { firstname, lastname, email, password, phone, address, role} = req.body;
+    try { 
+        const user = await User.findByIdAndUpdate(req.params.id, { firstname, lastname, email, password, phone, address, role}, {new: true});
+        res.status(200).json(user);
+    } catch (err) {
+        res.status(500).json(err);
+    }
 }

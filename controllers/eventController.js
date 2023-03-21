@@ -1,10 +1,11 @@
 const Event = require("../models/Event");
 const Attendee = require("../models/Attendee");
+const { canViewEvent, canDeleteEvent } = require("../permissions/eventsPermission");
 
 
 exports.getAllEvents = async (req, res) => {
   try {
-    // const events = await Event.find().sort({ createdAt: -1 });
+    // const events = await Event.find().sort({ createdAt:  -1 });
 
     const events = await Event.find().sort({ createdAt: -1 }).select('-attendees');
     res.json({ title: "All Events", events });
@@ -31,6 +32,7 @@ exports.getCreateEvent = (req, res) => {
 
 exports.postCreateEvent = async (req, res) => {
   const { name, description, date, time, location } = req.body;
+  // const role = req.user.role;
 
   try {
     const event = new Event({
@@ -39,6 +41,7 @@ exports.postCreateEvent = async (req, res) => {
       date,
       time,
       location,
+      userId: req.user.id,
     //   organizer: req.user.id, 
     });
     await event.save();

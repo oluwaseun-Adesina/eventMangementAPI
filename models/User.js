@@ -33,13 +33,23 @@ const userSchema = new mongoose.Schema({
     phone: {
         type: String,
         required: [false,'Please enter phone number'],
+        unique: false,
         maxlength: [14, 'Maximum phone number length is 14 character']
     },
     address: {
         type: String,
         required: [true, 'Please enter address'],
         lowercase: true
-    } 
+    } , role: {
+        type: String,
+        enum: ['admin', 'basic'],
+        default: 'basic'
+    },
+    permission: {
+        type: String,
+        enum: ['admin', 'basic'],
+        default: 'basic'
+    },
 });
 
 // fire a function after doc saved to db
@@ -48,6 +58,8 @@ const userSchema = new mongoose.Schema({
 //     console.log('new user was created & saved', doc);
 //     next();
 // })
+
+const ROLES = ['admin', 'basic'];
 
 
 //fire a function before doc saved to db 
@@ -73,3 +85,4 @@ userSchema.statics.login = async function(email, password){
 const User = mongoose.model('user', userSchema);
 
 module.exports = User;
+module.exports.ROLES = ROLES;
