@@ -178,3 +178,44 @@ exports.postChangeStatus = async (req, res) => {
 //     res.status(500).json({ message: "Error updating status" });
 //   }
 // }
+
+// get approved events
+exports.getApprovedEvents = async (req, res) => {
+  try {
+    const events = await Event.find({ status: "approved" }).sort({ createdAt: -1 });
+    res.json({ title: "All Approved Events", events });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error retrieving events" });
+  }
+};
+
+// get pending events
+
+exports.getPendingEvents = async (req, res) => {
+  try {
+    const events = await Event.find({ status: "pending" }).sort({ createdAt: -1 });
+    
+    // custom error for no pending events
+    if(events.length === 0){
+      return res.status(404).json({ message: "No pending events" });
+    }
+    
+    
+    res.json({ title: "All Pending Events", events });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error retrieving events" });
+  }
+};
+
+// get rejected events
+exports.getRejectedEvents = async (req, res) => {
+  try {
+    const events = await Event.find({ status: "rejected" }).sort({ createdAt: -1 });
+    res.json({ title: "All Rejected Events", events });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error retrieving events" });
+  }
+};

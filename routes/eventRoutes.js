@@ -11,7 +11,16 @@ router.get('/events', requireAuth, checkRole, scopedEvents, eventController.getA
 router.get('/events/new', requireAuth, eventController.getCreateEvent);
 router.post('/events/new', requireAuth, eventController.postCreateEvent)
 // change event status
-router.patch('/events/status/:id', requireAuth, eventController.postChangeStatus);
+router.patch('/events/status/:id', requireAuth, checkRole, eventController.postChangeStatus);
+
+// get approved events
+router.get('/events/approved', requireAuth, checkRole, eventController.getApprovedEvents);
+
+// get pending events
+router.get('/events/pending', requireAuth,  eventController.getPendingEvents);
+
+// get rejected events
+router.get('/events/rejected', requireAuth, checkRole,eventController.getRejectedEvents);
 
 
 router.get('/events/:id',requireAuth, eventController.getEvent);;
