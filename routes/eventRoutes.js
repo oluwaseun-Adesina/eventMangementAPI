@@ -17,7 +17,7 @@ router.patch('/events/status/:id', requireAuth, checkRole, eventController.postC
 router.get('/events/approved', requireAuth, checkRole, eventController.getApprovedEvents);
 
 // get pending events
-router.get('/events/pending', requireAuth,  eventController.getPendingEvents);
+router.get('/events/pending', requireAuth, checkRole ,eventController.getPendingEvents);
 
 // get rejected events
 router.get('/events/rejected', requireAuth, checkRole,eventController.getRejectedEvents);

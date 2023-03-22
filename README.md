@@ -106,6 +106,10 @@ Based on the requirements analysis, the following schema can be designed:
 -   PATCH /event/edit/:{Id} - Update details of a specific event.
 -   GET /event/delete/:id - Get delete a specific event.
 -   DELETE /event/delete/:{id} - Delete a specific event.
+-   GET /events/status/:{id} - Get the status of a specific event.
+-   GET /events/approved - Get a list of all approved events.
+-   GET /events/pending - Get a list of all pending events.
+-   GET /events/rejected - Get a list of all rejected events.
 ```
 
 ### **USER ENDPOINTS**
