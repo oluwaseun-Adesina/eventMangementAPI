@@ -183,6 +183,11 @@ exports.postChangeStatus = async (req, res) => {
 exports.getApprovedEvents = async (req, res) => {
   try {
     const events = await Event.find({ status: "approved" }).sort({ createdAt: -1 });
+
+    // custom error for no approved events
+    if(events.length === 0){
+      return res.status(404).json({ message: "No approved events" });
+    }
     res.json({ title: "All Approved Events", events });
   } catch (error) {
     console.log(error);
@@ -200,7 +205,7 @@ exports.getPendingEvents = async (req, res) => {
     if(events.length === 0){
       return res.status(404).json({ message: "No pending events" });
     }
-    
+
     
     res.json({ title: "All Pending Events", events });
   } catch (error) {
@@ -213,6 +218,11 @@ exports.getPendingEvents = async (req, res) => {
 exports.getRejectedEvents = async (req, res) => {
   try {
     const events = await Event.find({ status: "rejected" }).sort({ createdAt: -1 });
+
+    // custom error for no rejected events
+    if(events.length === 0){
+      return res.status(404).json({ message: "No rejected events" });
+    }
     res.json({ title: "All Rejected Events", events });
   } catch (error) {
     console.log(error);
