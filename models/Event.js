@@ -30,6 +30,12 @@ const eventSchema = new mongoose.Schema({
         ref: 'User',
         required: [false, 'Please enter event organizer']
     },
+    // organizerEmail: {
+    //     type: String,
+    //     required: [true, 'Please enter event organizer email'],
+    //     maxLength: [30, 'Maxium event organizer email lenght 15 characters']
+    // }
+    // ,
     attendees: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Attendee',
@@ -37,7 +43,16 @@ const eventSchema = new mongoose.Schema({
     }], userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    }
+    },
+    status: {
+        type: String,
+        enum: ['pending', 'approved', 'rejected'],
+        default: 'pending'
+    },
+    statusReason: {
+        type: String,
+        maxLength: [200, 'Maxium status reason lenght 200 characters']
+    },
 });
 
 

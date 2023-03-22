@@ -10,6 +10,10 @@ role = ROLES.Admin;
 router.get('/events', requireAuth, checkRole, scopedEvents, eventController.getAllEvents);
 router.get('/events/new', requireAuth, eventController.getCreateEvent);
 router.post('/events/new', requireAuth, eventController.postCreateEvent)
+// change event status
+router.patch('/events/status/:id', requireAuth, eventController.postChangeStatus);
+
+
 router.get('/events/:id',requireAuth, eventController.getEvent);;
 router.get('/events/edit/:id', requireAuth,authEditEvent,eventController.getEditEvent);
 router.patch('/events/edit/:id', requireAuth, authEditEvent, eventController.postEditEvent);
