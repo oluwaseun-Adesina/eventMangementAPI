@@ -2,6 +2,7 @@ const Event = require("../models/Event");
 const Attendee = require("../models/Attendee");
 const sendEmail = require('../email/email')
 const { canViewEvent, canDeleteEvent } = require("../permissions/eventsPermission");
+const jwt = require("jsonwebtoken");
 
 
 exports.getAllEvents = async (req, res) => {
@@ -34,18 +35,26 @@ exports.getCreateEvent = (req, res) => {
 exports.postCreateEvent = async (req, res) => {
   const { name, description, date, time, location, status } = req.body;
   // const role = req.user.role;
+  // get the user id from the token
+  const token = req.cookies.jwt;
+  const decoded = jwt.verify(token, process.env.authcontrollerSecret);
 
+  console.log("decoded", decoded);
+  const userId = decoded.id;
+  // const userId = req.user.id;
   try {
+
     const event = new Event({
       name,
       description,
       date,
       time,
       location,
-      userId: req.user.id,
+      userId: userId,
       status : status || "pending",
-      organizer: req.user.id, 
+      organizer: userId 
     });
+
     await event.save();
 
     res.status(201).json({message: "Event Created Successfully", event})
@@ -167,17 +176,6 @@ exports.postChangeStatus = async (req, res) => {
   }
 };
 
-// exports.patchEventStatus = async (req, res) => {
-//   try {
-//     const event = await Event.findById(req.params.id);
-//     event.status = req.body.status;
-//     await event.save();
-//     res.json({ message: "Status updated successfully", event });
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ message: "Error updating status" });
-//   }
-// }
 
 // get approved events
 exports.getApprovedEvents = async (req, res) => {

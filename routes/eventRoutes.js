@@ -1,17 +1,17 @@
 const { Router } = require('express');
 const eventController = require('../controllers/eventController');
 const router = Router();
-const {requireAuth, checkRole} = require('../middleware/auth');
+const {requireAuth, checkRole, checkUser} = require('../middleware/auth');
 const { canViewEvent, canDeleteEvent, canEditEvent, canCreateEvents, scopedEvents } = require('../permissions/eventsPermission');
 const { ROLES }= require('../models/User')
 role = ROLES.Admin;
 
 
 router.get('/events', requireAuth, checkRole, scopedEvents, eventController.getAllEvents);
-router.get('/events/new', requireAuth, eventController.getCreateEvent);
+router.get('/events/new', requireAuth, checkUser, eventController.getCreateEvent);
 router.post('/events/new', requireAuth, eventController.postCreateEvent)
 // change event status
-router.patch('/events/status/:id', requireAuth, checkRole, eventController.postChangeStatus);
+router.patch('/events/status/:id', requireAuth, checkUser ,checkRole, eventController.postChangeStatus);
 
 // get approved events
 router.get('/events/approved', requireAuth, checkRole, eventController.getApprovedEvents);

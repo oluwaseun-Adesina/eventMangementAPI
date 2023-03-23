@@ -16,6 +16,9 @@ const requireAuth = (req, res, next) => {
                 res.redirect('/login');
             } 
             else {
+                // let user =  User.findById(decodedToken.id);
+                // res.locals.user = user;
+                // console.log(res.locals.user.id)
                 console.log({message: "Authorized",decodedToken});
                 next();
             }
@@ -39,9 +42,19 @@ const checkUser = (req, res, next) =>{
                 next();
             } 
             else {
-                console.log(decodedToken);
+                
                 let user = await User.findById(decodedToken.id);
                 res.locals.user = user;
+
+                req.user = user;
+
+                // res.user = user;
+
+                // console.log(user)
+
+                console.log(decodedToken);
+
+                // console.log(res.locals.user)
                 next();
 
                 
