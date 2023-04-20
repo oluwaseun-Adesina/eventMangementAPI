@@ -1,3 +1,15 @@
+
+
+
+
+
+
+
+
+
+
+
+
 const User = require('../models/User')
 const jwt = require('jsonwebtoken');
 require('dotenv').config()
@@ -5,7 +17,7 @@ const sendEmail = require("../email/email");
 
 // handle errors
 const handleErrors = (err) =>{
-    console.log(err.message, err.code); 
+    // console.log(err.message, err.code); 
     let errors = { firstname: '', lastname: '', email: '', password: '', phone: '', address: ''};
 
     //incorrect email

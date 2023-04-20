@@ -12,9 +12,13 @@ const attendeeRoutes = require('./routes/attendeeRoutes')
 // express app
 const app = express();
 
+
+
 //CONNECT TO MONGO DB
 
-mongoose.connect(process.env.dbURIlocal, { useNewUrlParser: true, useUnifiedTopology: true })
+
+
+mongoose.connect(process.env.dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
     //.then((result) => app.listen(3000))
     .then((result) => app.listen(process.env.PORT || 3000, function() {
         console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
@@ -47,3 +51,5 @@ app.use((req, res) => {
     //res.status(404).sendFile("./views/404.html", {root: __dirname});
     res.status(404).json('404', { title: "Error 404" });
 });
+
+module.exports = app;
